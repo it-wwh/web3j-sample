@@ -10,7 +10,17 @@ web3j for java 样例程序 (基于web3j 5.0.0)
 mvn web3j:generate-sources
 ```
 
-**PS:上面的mvn命令目前只支持到 solidity 0.7.1**
+**PS:上面的mvn命令目前只支持到 solidity 0.7.1，超过版本可以下载[web3j](http://docs.web3j.io/4.8.7/command_line_tools/) ，通过abi、bin文件通过下面的命令手动生成 solidity 文件对应的 java 文件**
+```shell
+# windows需要手动配置环境变量
+curl -L get.web3j.io | sh && source ~/.web3j/source.sh
+web3j -v
+
+solc <contract>.sol --bin --abi --optimize -o <output-dir>/
+web3j generate solidity -a abi文件  -b bin文件 -o 生成Java文件文件  -p=包名 
+web3j generate solidity -a PancakeRouter.abi -b PancakeRouter.bin -o ./java -p org.web3j.model
+```
+
 
 ## 二、主要功能
 
@@ -29,6 +39,7 @@ mvn web3j:generate-sources
 - IBAN -> 根据官方规则生成iban及付款二维码
 - Calculate -> 在发布合约前计算合约地址，根据签名后的交易信息计算TxHash
 - SimpleTokenSample -> 智能合约的部署和使用
+- PancakePairScanSample -> pancake新建流动性池扫描
 --- 
 
 打赏 eth/bsc 地址:0xd6723d84aD34B4cCA001ce0DB9686Ea2037fCF98

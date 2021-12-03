@@ -1,0 +1,1 @@
+[{"inputs":[{"internalType":"address","name":"_input1","type":"address"},{"internalType":"address","name":"_input2","type":"address"}],"name":"getPair","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}]

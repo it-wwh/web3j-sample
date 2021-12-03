@@ -10,7 +10,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <web3j-maven-plugin.version>4.6.5</web3j-maven-plugin.version>
+        <web3j.version>5.0.0</web3j.version>
+        <web3j-maven-plugin.version>4.8.7</web3j-maven-plugin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -19,7 +20,7 @@
         <dependency>
             <groupId>org.web3j</groupId>
             <artifactId>core</artifactId>
-            <version>5.0.0</version>
+            <version>${web3j.version}</version>
         </dependency>
 
         <dependency>
