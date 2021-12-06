@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.web3j.model.ERC20;
 import org.web3j.model.IPancakeFactory;
+import org.web3j.model.PancakeRouter;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Environment;
@@ -18,17 +20,27 @@ public class PancakePairScanSample {
 
   private static final Logger logger = LoggerFactory.getLogger(PancakePairScanSample.class);
   private static final Web3j web3j = Web3j.build(new HttpService(Environment.RPC_URL));
-  private static final String pancakeFactoryAddress = "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73";
-  private static final String wbnbAddress = "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c";
-  private static final String busdAddress = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
-  private static final String usdtAddress = "0x55d398326f99059ff775485246999027b3197955";
+  private static final String toAddress = "0x6Db645A875e9d475d824142cA1532C245930be94";
+  /**
+   * ropsten 测试环境
+   * private static final String pancakeFactoryAddress = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f";
+   * private static final String pancakeRouterAddress = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
+   * private static final String wbnbAddress = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
+   * private static final String busdAddress = "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83";
+   * private static final String usdtAddress = "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83";
+   * ST （ropsten）  0x6d3964dD2EAf9214311A0Fc300bb8ea81F8Bfb67
+   * private static final String tokenAddress = "0x6d3964dD2EAf9214311A0Fc300bb8ea81F8Bfb67";
+   */
+  private static final String pancakeFactoryAddress = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f";
+  private static final String pancakeRouterAddress = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
+  private static final String wbnbAddress = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
+  private static final String busdAddress = "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83";
+  private static final String usdtAddress = "0x110a13FC3efE6A245B50102D2d79B3E76125Ae83";
+  private static final String tokenAddress = "0x6d3964dD2EAf9214311A0Fc300bb8ea81F8Bfb67";
   private static final BigInteger bnbLiquidity = Convert.toWei(BigDecimal.valueOf(300), Convert.Unit.ETHER).toBigInteger();
   private static final BigInteger usdtLiquidity = Convert.toWei(BigDecimal.valueOf(200000), Convert.Unit.ETHER).toBigInteger();
-  /**
-   * RICE 0x338AF54976B9D4F7F41c97dcb60dFEc0694149f9
-   * LOA  0x94b69263FCA20119Ae817b6f783Fc0F13B02ad50
-   */
-  private static final String tokenAddress = "0x338AF54976B9D4F7F41c97dcb60dFEc0694149f9";
+  private static final BigInteger amount = Convert.toWei(BigDecimal.valueOf(0.1), Convert.Unit.ETHER).toBigInteger();
+  private static final BigInteger deadline = BigInteger.valueOf((System.currentTimeMillis() / 1000) + (600 * 30));
 
   public static void main(String[] args) {
     pancakePairScan();
@@ -57,9 +69,9 @@ public class PancakePairScanSample {
           path.add(wbnbAddress);
           path.add(busdAddress);
           path.add(tokenAddress);
-          ERC20 busdErc20 = ERC20.load(busdPairAddress, web3j, Environment.CREDENTIALS, Environment.STATIC_GAS_PROVIDER);
+          ERC20 busdErc20 = ERC20.load(busdAddress, web3j, Environment.CREDENTIALS, Environment.STATIC_GAS_PROVIDER);
           BigInteger busdBalance = busdErc20.balanceOf(busdPairAddress).send();
-          logger.info("busd-token pair create pair_address:{} >>> {}", wbnbPairAddress, busdBalance.divide(BigInteger.TEN.pow(18)));
+          logger.info("busd-token pair create pair_address:{} >>> {}", busdPairAddress, busdBalance.divide(BigInteger.TEN.pow(18)));
           if (busdBalance.compareTo(usdtLiquidity) > 0) {
             break;
           } else {
@@ -71,9 +83,9 @@ public class PancakePairScanSample {
           path.add(wbnbAddress);
           path.add(usdtAddress);
           path.add(tokenAddress);
-          ERC20 usdtErc20 = ERC20.load(usdtPairAddress, web3j, Environment.CREDENTIALS, Environment.STATIC_GAS_PROVIDER);
-          BigInteger usdtBalance = usdtErc20.balanceOf(busdPairAddress).send();
-          logger.info("usdt-token pair create pair_address:{} >>> {}", wbnbPairAddress, usdtBalance.divide(BigInteger.TEN.pow(18)));
+          ERC20 usdtErc20 = ERC20.load(usdtAddress, web3j, Environment.CREDENTIALS, Environment.STATIC_GAS_PROVIDER);
+          BigInteger usdtBalance = usdtErc20.balanceOf(usdtPairAddress).send();
+          logger.info("usdt-token pair create pair_address:{} >>> {}", usdtPairAddress, usdtBalance.divide(BigInteger.TEN.pow(18)));
           if (usdtBalance.compareTo(usdtLiquidity) > 0) {
             break;
           } else {
@@ -83,6 +95,9 @@ public class PancakePairScanSample {
         logger.info("token lp not create or liquidity not enough !");
       }
       logger.info("path:{}", path);
+      PancakeRouter pancakeRouter = PancakeRouter.load(pancakeRouterAddress, web3j, Environment.CREDENTIALS, Environment.STATIC_GAS_PROVIDER);
+      TransactionReceipt transactionReceipt = pancakeRouter.swapExactETHForTokens(BigInteger.valueOf(1), path, toAddress, deadline, amount).send();
+      logger.info("transactionReceipt >>> {}", transactionReceipt.toString());
     } catch (Exception e) {
       e.printStackTrace();
     }

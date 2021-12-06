@@ -40,6 +40,7 @@ web3j generate solidity -a PancakeRouter.abi -b PancakeRouter.bin -o ./java -p o
 - Calculate -> 在发布合约前计算合约地址，根据签名后的交易信息计算TxHash
 - SimpleTokenSample -> 智能合约的部署和使用
 - PancakePairScanSample -> pancake新建流动性池扫描
+- PairCreatedEventTask -> PancakeFactory合约监听PairCreated事件
 --- 
 
 打赏 eth/bsc 地址:0xd6723d84aD34B4cCA001ce0DB9686Ea2037fCF98
