@@ -12,7 +12,6 @@ import org.web3j.model.ERC20;
 import org.web3j.model.IPancakeFactory;
 import org.web3j.model.PancakeRouter;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.EthFilter;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -46,9 +45,8 @@ public class PairCreatedEventTask {
   private static final BigInteger deadline = BigInteger.valueOf((System.currentTimeMillis() / 1000) + (600 * 30));
 
   public static void main(String[] args) {
-    BigInteger currentBlockNumber = BigInteger.valueOf(13318231L);
     EthFilter filter = new EthFilter(
-        DefaultBlockParameter.valueOf(currentBlockNumber),
+        DefaultBlockParameterName.LATEST,
         DefaultBlockParameterName.LATEST,
         pancakeFactoryAddress);
     Event event = new Event("PairCreated",
