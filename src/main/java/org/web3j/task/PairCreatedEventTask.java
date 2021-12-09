@@ -46,7 +46,7 @@ public class PairCreatedEventTask {
   private static final BigInteger deadline = BigInteger.valueOf((System.currentTimeMillis() / 1000) + (600 * 30));
 
   public static void main(String[] args) {
-    BigInteger currentBlockNumber = BigInteger.valueOf(13238060L);
+    BigInteger currentBlockNumber = BigInteger.valueOf(13318231L);
     EthFilter filter = new EthFilter(
         DefaultBlockParameter.valueOf(currentBlockNumber),
         DefaultBlockParameterName.LATEST,
@@ -96,7 +96,7 @@ public class PairCreatedEventTask {
         path.add(tokenAddress);
         ERC20 wbnbErc20 = ERC20.load(wbnbAddress, web3j, Environment.CREDENTIALS, Environment.STATIC_GAS_PROVIDER);
         BigInteger wbnbBalance = wbnbErc20.balanceOf(wbnbPairAddress).send();
-        logger.info("wbnb-token pair create pair_address:{} >>> {}", wbnbPairAddress, wbnbBalance.divide(BigInteger.TEN.pow(18)));
+        logger.info("wbnb-token pair create pair_address:{} >>> {} wbnb", wbnbPairAddress, wbnbBalance.divide(BigInteger.TEN.pow(18)));
         if (wbnbBalance.compareTo(bnbLiquidity) < 0) {
           logger.info("wbnb not enough >>> {}", bnbLiquidity.divide(BigInteger.TEN.pow(18)));
         } else {
@@ -111,7 +111,7 @@ public class PairCreatedEventTask {
         path.add(tokenAddress);
         ERC20 busdErc20 = ERC20.load(busdAddress, web3j, Environment.CREDENTIALS, Environment.STATIC_GAS_PROVIDER);
         BigInteger busdBalance = busdErc20.balanceOf(busdPairAddress).send();
-        logger.info("busd-token pair create pair_address:{} >>> {}", busdPairAddress, busdBalance.divide(BigInteger.TEN.pow(18)));
+        logger.info("busd-token pair create pair_address:{} >>> {} busd", busdPairAddress, busdBalance.divide(BigInteger.TEN.pow(18)));
         if (busdBalance.compareTo(usdtLiquidity) < 0) {
           logger.info("busd not enough >>> {}", usdtLiquidity.divide(BigInteger.TEN.pow(18)));
         } else {
@@ -126,7 +126,7 @@ public class PairCreatedEventTask {
         path.add(tokenAddress);
         ERC20 usdtErc20 = ERC20.load(usdtAddress, web3j, Environment.CREDENTIALS, Environment.STATIC_GAS_PROVIDER);
         BigInteger usdtBalance = usdtErc20.balanceOf(usdtPairAddress).send();
-        logger.info("usdt-token pair create pair_address:{} >>> {}", usdtPairAddress, usdtBalance.divide(BigInteger.TEN.pow(18)));
+        logger.info("usdt-token pair create pair_address:{} >>> {} usdt", usdtPairAddress, usdtBalance.divide(BigInteger.TEN.pow(18)));
         if (usdtBalance.compareTo(usdtLiquidity) < 0) {
           logger.info("usdt not enough >>> {}", usdtLiquidity.divide(BigInteger.TEN.pow(18)));
         } else {
