@@ -10,9 +10,10 @@ web3j for java 样例程序 (基于web3j 5.0.0)
 mvn web3j:generate-sources
 ```
 
-**PS:上面的mvn命令目前只支持到 solidity 0.7.1，超过版本可以下载[web3j](http://docs.web3j.io/4.8.7/command_line_tools/) ，通过abi、bin文件通过下面的命令手动生成 solidity 文件对应的 java 文件**
+~~PS:上面的mvn命令目前只支持到 solidity 0.7.1，超过版本可以下载[web3j](http://docs.web3j.io/4.8.7/command_line_tools/) ，通过abi、bin文件通过下面的命令手动生成 solidity 文件对应的 java 文件~~
+
 ```shell
-# windows需要手动配置环境变量
+# windows需要手动配置环境变量（或者修改solidity的版本 pragma solidity >=0.7.0 <0.9.0;）
 curl -L get.web3j.io | sh && source ~/.web3j/source.sh
 web3j -v
 
@@ -21,6 +22,7 @@ web3j generate solidity -a abi文件  -b bin文件 -o 生成Java文件文件  -p
 web3j generate solidity -a PancakeRouter.abi -b PancakeRouter.bin -o ./java -p org.web3j.model
 ```
 
+> 0.7.1 以上版本的 solidity 可以这样设置 `pragma solidity >=0.7.0 <0.9.0;` https://github.com/web3j/web3j-maven-plugin/issues/68
 
 ## 二、主要功能
 

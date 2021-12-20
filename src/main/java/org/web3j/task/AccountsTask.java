@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 批量创建账户，并导出地址、私钥
+ * 多线程有点问题，过后在研究
  */
 public class AccountsTask {
 
