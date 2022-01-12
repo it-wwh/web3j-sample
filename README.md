@@ -45,6 +45,7 @@ web3j generate solidity -a PancakeRouter.abi -b PancakeRouter.bin -o ./java -p o
 - PairCreatedEventTask -> PancakeFactory合约监听PairCreated事件
 - AccountsTask -> 批量创建账户，并导出地址、私钥
 - PancakeRouterTask -> swapExactTokensForTokens
+- ECRecoverSample -> 后端通过ECRecover验证合约签名
 --- 
 
 打赏 eth/bsc 地址:0x684ace198a9E0E52E75E50c094Fe5e36140EE6C1
