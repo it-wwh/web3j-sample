@@ -20,8 +20,10 @@ public class Environment {
   public static String RPC_URL = "http://localhost:8545";
   public static String PRIVATE_KEY = "xxxxxx";
   public static BigInteger DEFAULT_GAS_PRICE = Convert.toWei(BigDecimal.valueOf(10), Convert.Unit.GWEI).toBigInteger();
-  public static BigInteger DEFAULT_GAS_LIMIT = BigInteger.valueOf(210000);
+  public static BigInteger DEFAULT_GAS_LIMIT = BigInteger.valueOf(2100000);
   public static StaticGasProvider STATIC_GAS_PROVIDER = new StaticGasProvider(DEFAULT_GAS_PRICE, DEFAULT_GAS_LIMIT);
   public static Credentials CREDENTIALS = Credentials.create(ECKeyPair.create(new BigInteger(PRIVATE_KEY, 16)));
-
+  public static final String BINANCE_API_KEY = "XXX";
+  public static final String BINANCE_SECRET_KEY = "XXX";
+  public static final String BINANCE_BASE_URL = "https://api.binance.com";
 }
